@@ -84,6 +84,9 @@ set(CLANG_ENABLE_STATIC_ANALYZER ${MY_BUILD_LAST_STAGE} CACHE BOOL "")
 # Disable plugin support unless this is the last build stage
 set(CLANG_PLUGIN_SUPPORT ${MY_BUILD_LAST_STAGE} CACHE BOOL "")
 
+# The compiler builtins are necessary
+set(COMPILER_RT_BUILD_BUILTINS ON CACHE BOOL "")
+
 macro(SetBoolForeachTarget Var Value)
   set(${Var} ${Value} CACHE BOOL "")
   foreach(T ${LLVM_RUNTIME_TARGETS})
@@ -97,9 +100,6 @@ macro(SetStringForeachTarget Var Value)
     set(RUNTIMES_${T}_${Var} ${Value} CACHE STRING "")
   endforeach()
 endmacro()
-
-# The compiler builtins are necessary.
-SetBoolForeachTarget(COMPILER_RT_BUILD_BUILTINS ON)
 
 SetBoolForeachTarget(COMPILER_RT_BUILD_XRAY ${MY_BUILD_LAST_STAGE})
 
